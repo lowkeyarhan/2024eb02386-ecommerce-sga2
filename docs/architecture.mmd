@@ -1,0 +1,22 @@
+flowchart TB
+    U[Browser: JSP + JSTL + CSS + jQuery/AJAX] --> MVC[Spring MVC routing]
+    MVC --> C[Feature Controllers]
+    C --> P[Service Ports / Interfaces]
+    P --> S[Domain Service Implementations]
+    S --> V[Shared Business Rules + Validators]
+    S --> R[Spring Data JPA Repositories]
+    R --> H[Hibernate / JPA]
+    H --> F[Flyway-managed MySQL 8]
+    S --> TX[Transactional Workflows]
+    TX --> R
+
+    subgraph Modules[Feature-first modular monolith]
+      CAT[Catalog: Products / Categories / Sellers]
+      CUS[Customer: Customers / Addresses]
+      CART[Cart: Carts / Cart Items]
+      ORD[Orders: Orders / Payments / Returns / Shipments]
+      INV[Inventory: Movements / Restock]
+      REP[Reports: Dashboard / Reports]
+    end
+    C --> Modules
+    Modules --> P

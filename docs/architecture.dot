@@ -1,0 +1,29 @@
+digraph MVC {
+  graph [rankdir=TB, splines=ortho, nodesep=0.28, ranksep=0.32, bgcolor="#ffffff", pad=0.35, fontname="Helvetica", label="REQUEST FLOW | MVC + DOMAIN SERVICES", labelloc=t, fontsize=19];
+  node [shape=box, style="rounded,filled", color="#b7c8bf", fillcolor="#f5f8f6", fontname="Helvetica", fontsize=10, penwidth=1.2, margin="0.20,0.12"];
+  edge [color="#176b57", penwidth=1.4, arrowsize=0.75];
+  browser [label="Browser\nJSP + JSTL · CSS · jQuery / AJAX", fillcolor="#eaf4ee"];
+  controller [label="Spring MVC Controllers\nHTTP routes · request binding · view selection"];
+  ports [label="Service Ports / Interfaces\nDependency inversion boundary"];
+  services [label="Domain Services\nUse cases · validation · orchestration · @Transactional"];
+  repos [label="Spring Data JPA Repositories\nPersistence · custom JPQL / native queries"];
+  orm [label="Hibernate / JPA\nEntity mapping · relationships · transaction context"];
+  db [label="MySQL 8 / InnoDB\n15 tables · constraints · indexes · generated totals", fillcolor="#eaf4ee"];
+  browser -> controller -> ports -> services -> repos -> orm -> db;
+  subgraph cluster_modules {
+    label="Feature-first modules"; color="#dce7e1"; style="rounded"; fontname="Helvetica"; fontsize=11;
+    catalog [label="Catalog\nProducts · Categories · Sellers"];
+    customer [label="Customer\nCustomers · Addresses"];
+    cart [label="Cart\nCarts · Cart Items"];
+    orders [label="Orders\nOrders · Payments · Shipments · Returns"];
+    inventory [label="Inventory\nStock ledger · Restock"];
+    reports [label="Reports\nDashboard · Analytics"];
+    {rank=same; catalog; customer; cart; orders; inventory; reports;}
+  }
+  services -> catalog [style=dashed, arrowhead=none, color="#809a8c"];
+  services -> customer [style=dashed, arrowhead=none, color="#809a8c"];
+  services -> cart [style=dashed, arrowhead=none, color="#809a8c"];
+  services -> orders [style=dashed, arrowhead=none, color="#809a8c"];
+  services -> inventory [style=dashed, arrowhead=none, color="#809a8c"];
+  services -> reports [style=dashed, arrowhead=none, color="#809a8c"];
+}

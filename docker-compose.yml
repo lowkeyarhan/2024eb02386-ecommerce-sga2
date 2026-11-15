@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.0.40
+    container_name: ecommerce-sga2-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ecommerce_sga2
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Kolkata
+    ports:
+      - "3306:3306"
+    volumes:
+      - ecommerce_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+volumes:
+  ecommerce_mysql_data:

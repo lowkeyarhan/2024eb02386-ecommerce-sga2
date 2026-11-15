@@ -1,0 +1,10 @@
+/target/
+/.idea/
+*.iml
+.DS_Store
+.env
+*.log
+*.swp
+*.class
+.report-render/
+.final-render/

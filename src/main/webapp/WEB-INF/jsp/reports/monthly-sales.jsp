@@ -1,0 +1,4 @@
+<%@ include file="/WEB-INF/jsp/fragments/header.jspf" %>
+<section class="page-heading"><div><p class="eyebrow">Report 02</p><h1>Monthly net sales</h1><p class="subheading">Net sales equal completed charges less completed refunds. Pending or failed payments are excluded.</p></div><a href="/reports" class="button secondary">All reports</a></section>
+<section class="panel"><div class="table-wrap"><table><thead><tr><th>Sales month</th><th>Net sales</th></tr></thead><tbody><c:forEach items="${rows}" var="row"><tr><td class="table-title"><c:out value="${row.month}"/></td><td><strong><fmt:formatNumber value="${row.netSales}" type="currency" currencyCode="INR"/></strong></td></tr></c:forEach><c:if test="${empty rows}"><tr><td colspan="2" class="empty">No completed payment records available.</td></tr></c:if></tbody></table></div></section>
+<%@ include file="/WEB-INF/jsp/fragments/footer.jspf" %>

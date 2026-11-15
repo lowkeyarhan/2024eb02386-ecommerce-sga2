@@ -1,0 +1,29 @@
+Build verification record
+Date: 2026-11-15
+
+Runtime available:
+- Java: OpenJDK 21.0.12
+- Chromium: /usr/bin/chromium
+- Maven executable: not installed
+- MySQL CLI: not installed
+- Docker CLI: not installed
+
+Attempted command:
+  ./mvnw clean verify
+
+Result:
+  Maven could not be downloaded because the environment could not resolve repo.maven.apache.org (curl error 6: Could not resolve host). No compile/test result is claimed.
+
+What was verified locally:
+- Static bundle checks from scripts/validate_bundle.py.
+- Maven POM parsed as XML.
+- MySQL migration checked for 15 CREATE TABLE declarations and table/column naming alignment by static inspection.
+- Java source layout, JPA entity count, JSP view count, controller mappings, and test-source counts inspected.
+- UI template previews rendered with Chromium from the same CSS and reviewed visually. Previews are labelled design previews, not runtime screenshots.
+
+Required local acceptance commands:
+  docker compose up -d mysql
+  ./mvnw clean verify
+  ./mvnw spring-boot:run
+
+Do not mark the functional test matrix as PASS until the application is built and exercised against MySQL 8.
